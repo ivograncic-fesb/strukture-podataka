@@ -1,0 +1,23 @@
+struct Person* Position;
+struct Person{
+  podatci;
+  Position next;
+};
+-u main-u
+Person Head={.name=""
+             next=NULL
+            }
+A) a lokacija tipa Position
+newPerson.name="";                      prva funkcija
+newPerson.next=NULL;
+
+
+newPerson-next=Head.next                druga funkcija
+Head.next=&newPerson;
+
+B) for(pointer=Head.next; pointer!=NULL; pointer=pointer-next)
+
+  C)alokacija tipa Position
+  newPerson.name=""
+  newPerson.next=Null;
+for(q=Head.next;q-next!=NULL;q-next)
