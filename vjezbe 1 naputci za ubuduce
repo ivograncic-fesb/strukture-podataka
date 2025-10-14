@@ -1,0 +1,6 @@
+#define _CRT_NO_WARNINGS (OBAVEZNO STAVITI)
+deklaraciju  funkcije stavljati iznad mina
+sadržaj funkcija se navodi nakon maina
+NEMOJ PRENOSITI FILE KAO ARGUMENT FUNKCIJE (unutar svake funkcije u kojoj koristimo pointer otvorimo te zatvorimo datoteku)
+treba osloboditi memoriju od strukture na kraju maina (free(stud);)
+
