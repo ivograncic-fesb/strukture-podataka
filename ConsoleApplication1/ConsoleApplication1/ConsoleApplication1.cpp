@@ -12,7 +12,6 @@
     relativniBodovi = (bodovi / maxBodovi) * 100
 */
 
-#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,19 +37,6 @@ int prebrojiRedkeUDatoteci(char* imeDatoteke);
 int ucitajStudenteIzDatoteke(char* imeDatoteke, Student* studenti, int brojStudenata, int* maxBodovi);
 int ispisiStudente(Student* studenti, int brojStudenata, int maxBodovi);
 
-/* Helper: print message, optional errno info, wait for Enter and exit */
-static void ExitWithMessageAndCode(const char* msg, int code)
-{
-    if (msg && msg[0]) printf("%s\n", msg);
-    if (errno != 0) {
-        printf("System error: ");
-        perror(NULL); /* prints message for errno */
-    }
-    printf("Pritisnite Enter za izlaz...\n");
-    fflush(stdout);
-    getchar();
-    exit(code);
-}
 
 int main()
 {
