@@ -1,0 +1,19 @@
+struktura liste Polinom mora sadrzavati:
+a)koeficijent
+b)potenciju
+c)pokazivac na sljedeceg clana
+
+td poly
+polyHead={.next=NULL;}
+poly firstPoly=Head;
+poly secondPoly=Head;
+Position q =&Head;
+
+-fopen(datoteka...)
+-buffer -> fgets
+-sscanf(buffer,"%d %d %n", &coeficient, &power, &n)
+-p=&firstPoly//Position prev=p;p->next;
+Position newElement=NULL;
+
+1. provjera prazne liste za p
+2.p->power>pow;
