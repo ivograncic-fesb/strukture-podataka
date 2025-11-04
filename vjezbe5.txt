@@ -1,0 +1,40 @@
+1)
+td struct-pushfix*Position;
+td struct-postfix{
+  double numer;
+  Position next;
+}postfix,
+head={.number=0,
+      .next=NULL}
+
+2)
+učitati datoteku
+pohraniti podatke
+zatvoriti datoteku
+
+3)
+a)prepoznati je li učitan broj->push
+b)ako je učitan operator->pop
+c)trash
+
+(a)Push(Position head, double number)
+Position q=head->next
+alokacija newElement
+newElemrnt->number=num;
+newElement->next=NULL;
+newEl->next=q->next;
+q->next=newEl;
+------------------------------------------
+first=q->next;
+second=first->next;
+
+(b)pop(Position first
+        Position second)
+-petlja za operaciju
+->rezultat(12)
+q->next=second->next;
+first->next=NULL;
+second->next=NULL;
+free(first);
+free(second);
+Push(&head, rezultat)
