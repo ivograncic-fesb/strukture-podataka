@@ -23,7 +23,7 @@ int main(void) {
     head.next = NULL;
 
     // Naziv datoteke
-    const char* filename = "postfix.txt";
+    const char* filename = "zadatak5.txt";
 
     double rezultat = calculatePostfix(&head, filename);
     printf("Rezultat izraza: %.2lf\n", rezultat);
@@ -121,4 +121,5 @@ double calculatePostfix(Position head, const char* filename) {
 
     return pop(head);
 }
+
 
