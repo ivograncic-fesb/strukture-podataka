@@ -77,7 +77,7 @@ double calculatePostfix(Position head, const char* filename) {
         // a) Ako je broj → push
         if (isdigit(token[0]) ||
             (token[0] == '-' && isdigit(token[1]))) {
-            double value = atof(token);
+            float value = atof(token);
             push(head, value);
         }
         // b) Ako je operator → pop 2 broja, računaj, push rezultat
@@ -121,5 +121,6 @@ double calculatePostfix(Position head, const char* filename) {
 
     return pop(head);
 }
+
 
 
