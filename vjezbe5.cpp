@@ -17,8 +17,6 @@ void push(Position head, double number);
 double pop(Position head);
 double calculatePostfix(Position head, const char* filename);
 
-//-------------------------------------------------------------
-
 int main(void) {
     Postfix head;
     head.number = 0;
@@ -33,7 +31,6 @@ int main(void) {
     return 0;
 }
 
-//-------------------------------------------------------------
 
 Position createNode(double number) {
     Position newNode = (Position)malloc(sizeof(Postfix));
@@ -124,3 +121,4 @@ double calculatePostfix(Position head, const char* filename) {
 
     return pop(head);
 }
+
