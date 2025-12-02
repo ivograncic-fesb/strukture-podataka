@@ -42,8 +42,8 @@ Racun* umetniRacunSortirano(Racun* head, Racun* novi) {
     return head;
 }
 
-Racun* ucitajRacun(const char* filename) {
-    FILE* f = fopen(filename, "r");
+Racun* ucitajRacun(const char* racuni.txt) {
+    FILE* f = fopen(racuni.txt, "r");
     if (!f) return NULL;
 
     Racun* r = malloc(sizeof(Racun));
@@ -118,3 +118,4 @@ int main() {
     upit(racuni, trazeni, d1, d2);
     return 0;
 }
+
