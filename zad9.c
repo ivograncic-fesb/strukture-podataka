@@ -1,4 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -95,27 +95,39 @@ Cvor* generirajStablo(int n) {
     return korijen;
 }
 
+// oslobadja cijelo stablo iz memorije
+void oslobodiStablo(Cvor* korijen) {
+    if (korijen == NULL)
+        return;
+
+    oslobodiStablo(korijen->lijevo);
+    oslobodiStablo(korijen->desno);
+    free(korijen);
+}
+
 int main() {
 
     FILE* f;
     Cvor* korijen;
 
-    srand(time(NULL));              // inicijalizacija rand()
+    srand(time(NULL));
 
-    korijen = generirajStablo(9);   // stvaranje stabla
+    korijen = generirajStablo(9);
 
-    f = fopen("izlaz.txt", "w");    // otvaranje datoteke
+    f = fopen("izlaz.txt", "w");
 
-    inorder(korijen, f);            // ispis nakon insert
+    inorder(korijen, f);
 
-    replace(korijen);               // zamjena vrijednosti
+    replace(korijen);
 
     fprintf(f, "\n");
 
-    inorder(korijen, f);            // ispis nakon replace
+    inorder(korijen, f);
 
-    fclose(f);                      // zatvaranje datoteke
+    fclose(f);
+
+    // oslobadanje sve dinamicke memorije
+    oslobodiStablo(korijen);
 
     return 0;
 }
-
