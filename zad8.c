@@ -19,7 +19,6 @@ Cvor* stvoriCvor(int x) {
     novi->desno = NULL;
     return novi;
 }
-
 // umetanje elementa u stablo
 Cvor* umetni(Cvor* korijen, int x) {
     if (korijen == NULL)
