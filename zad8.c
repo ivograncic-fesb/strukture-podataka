@@ -1,124 +1,132 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>              
 #include <stdlib.h>
 
-
 // struktura čvora binarnog stabla pretraživanja
 typedef struct Cvor {
-    int vrijednost;             // vrijednost koja se sprema u čvor
-    struct Cvor* lijevo;        // pokazivač na livo dijete
-    struct Cvor* desno;         // pokazivač na desno dijete
+    int vrijednost;             
+    struct Cvor* lijevo;        
+    struct Cvor* desno;         
 } Cvor;
 
 // funkcija za stvaranje novog čvora
 Cvor* stvoriCvor(int x) {
-    Cvor* novi = (Cvor*)malloc(sizeof(Cvor)); // alokacija memorije
-    if (novi == NULL)                          // provjera uspješnosti
-        return NULL;                           // ako ne uspije, vrati NULL
-    novi->vrijednost = x;                      // postavljanje vrijednosti
-    novi->lijevo = NULL;                       // nema livo dijete
-    novi->desno = NULL;                        // nema desno dijete
-
-    return novi;                               // vraćanje čvora
+    Cvor* novi = (Cvor*)malloc(sizeof(Cvor));
+    if (novi == NULL)
+        return NULL;
+    novi->vrijednost = x;
+    novi->lijevo = NULL;
+    novi->desno = NULL;
+    return novi;
 }
 
 // umetanje elementa u stablo
 Cvor* umetni(Cvor* korijen, int x) {
-    if (korijen == NULL)                       // ako je stablo prazno
-        return stvoriCvor(x);                  // stvori novi čvor
+    if (korijen == NULL)
+        return stvoriCvor(x);
 
-    if (x < korijen->vrijednost)               // ako je manji
-        korijen->lijevo = umetni(korijen->lijevo, x); // idi lijevo
-    else if (x > korijen->vrijednost)          // ako je veći
-        korijen->desno = umetni(korijen->desno, x);   // idi desno
+    if (x < korijen->vrijednost)
+        korijen->lijevo = umetni(korijen->lijevo, x);
+    else if (x > korijen->vrijednost)
+        korijen->desno = umetni(korijen->desno, x);
 
-    return korijen;                            // vrati korijen
+    return korijen;
 }
 
-// inorder ispis – vraća broj ispisanih elemenata
+// inorder ispis
 int inorder(Cvor* korijen) {
-    int brojac = 0;                            // brojač elemenata
-    if (korijen != NULL) {                     // ako čvor postoji
-        brojac += inorder(korijen->lijevo);   // livo podstablo
-        printf("%d ", korijen->vrijednost);   // ispis
-        brojac++;                              // povećaj brojač
-        brojac += inorder(korijen->desno);    // desno podstablo
+    int brojac = 0;
+    if (korijen != NULL) {
+        brojac += inorder(korijen->lijevo);
+        printf("%d ", korijen->vrijednost);
+        brojac++;
+        brojac += inorder(korijen->desno);
     }
-    return brojac;                             // vrati broj elemenata
+    return brojac;
 }
 
-// preorder ispis – vraća broj ispisanih elemenata
+// preorder ispis
 int preorder(Cvor* korijen) {
-    int brojac = 0;                            // brojač
+    int brojac = 0;
     if (korijen != NULL) {
-        printf("%d ", korijen->vrijednost);   // ispis
-        brojac++;                              // povećaj brojač
-        brojac += preorder(korijen->lijevo);  // lijevo
-        brojac += preorder(korijen->desno);   // desno
+        printf("%d ", korijen->vrijednost);
+        brojac++;
+        brojac += preorder(korijen->lijevo);
+        brojac += preorder(korijen->desno);
     }
-    return brojac;                             // vrati broj
+    return brojac;
 }
 
-// postorder ispis – vraća broj ispisanih elemenata
+// postorder ispis
 int postorder(Cvor* korijen) {
-    int brojac = 0;                            // brojač
+    int brojac = 0;
     if (korijen != NULL) {
-        brojac += postorder(korijen->lijevo); // lijevo
-        brojac += postorder(korijen->desno);  // desno
-        printf("%d ", korijen->vrijednost);   // ispis
-        brojac++;                              // povećaj brojač
+        brojac += postorder(korijen->lijevo);
+        brojac += postorder(korijen->desno);
+        printf("%d ", korijen->vrijednost);
+        brojac++;
     }
-    return brojac;                             // vrati broj
+    return brojac;
 }
 
 // pronalaženje minimalnog čvora
 Cvor* minCvor(Cvor* korijen) {
-    Cvor* trenutni = korijen;                  // početni čvor
+    Cvor* trenutni = korijen;
     while (trenutni != NULL && trenutni->lijevo != NULL)
-        trenutni = trenutni->lijevo;           // idi skroz lijevo
-    return trenutni;                           // vrati najmanji
+        trenutni = trenutni->lijevo;
+    return trenutni;
 }
 
-// brisanje elementa iz stabla
+// brisanje elementa
 Cvor* obrisi(Cvor* korijen, int x) {
-    if (korijen == NULL)                       // ako je prazno
-        return NULL;                           // nema brisanja
+    if (korijen == NULL)
+        return NULL;
 
-    if (x < korijen->vrijednost)               // ako je manji
+    if (x < korijen->vrijednost)
         korijen->lijevo = obrisi(korijen->lijevo, x);
-    else if (x > korijen->vrijednost)          // ako je veći
+    else if (x > korijen->vrijednost)
         korijen->desno = obrisi(korijen->desno, x);
-    else {                                     // pronađen čvor
-        if (korijen->lijevo == NULL) {         // nema livo dijete
-            Cvor* temp = korijen->desno;       // spremi desno
-            free(korijen);                     // oslobodi memoriju
-            return temp;                       // vrati novo stablo
+    else {
+        if (korijen->lijevo == NULL) {
+            Cvor* temp = korijen->desno;
+            free(korijen);
+            return temp;
         }
-        if (korijen->desno == NULL) {          // nema desno dijete
-            Cvor* temp = korijen->lijevo;      // spremi lijevo
-            free(korijen);                     // oslobodi memoriju
-            return temp;                       // vrati novo stablo
+        if (korijen->desno == NULL) {
+            Cvor* temp = korijen->lijevo;
+            free(korijen);
+            return temp;
         }
-        Cvor* temp = minCvor(korijen->desno);  // najmanji u desnom
-        korijen->vrijednost = temp->vrijednost; // kopiranje
+        Cvor* temp = minCvor(korijen->desno);
+        korijen->vrijednost = temp->vrijednost;
         korijen->desno = obrisi(korijen->desno, temp->vrijednost);
     }
-    return korijen;                            // vrati korijen
+    return korijen;
 }
 
-// pretraživanje – vraća 1 ako postoji, 0 ako ne postoji
+// pretraživanje
 int pretrazi(Cvor* korijen, int x) {
-    if (korijen == NULL)                       // ako je prazno
-        return 0;                              // ne postoji
-    if (korijen->vrijednost == x)              // ako je pronađen
-        return 1;                              // postoji
-    if (x < korijen->vrijednost)               // ako je manji
-        return pretrazi(korijen->lijevo, x);   // livo
+    if (korijen == NULL)
+        return 0;
+    if (korijen->vrijednost == x)
+        return 1;
+    if (x < korijen->vrijednost)
+        return pretrazi(korijen->lijevo, x);
     else
-        return pretrazi(korijen->desno, x);    // desno
+        return pretrazi(korijen->desno, x);
 }
 
-// funkcija za izbornik – vraća korisnikov izbor
+// funkcija za oslobađanje cijelog stabla
+void oslobodiStablo(Cvor* korijen) {
+    if (korijen == NULL)
+        return;
+
+    oslobodiStablo(korijen->lijevo);
+    oslobodiStablo(korijen->desno);
+    free(korijen);
+}
+
+// izbornik
 int izbornik() {
     int izbor;
     printf("\n1 - Umetni element\n");
@@ -129,44 +137,46 @@ int izbornik() {
     printf("6 - Pretrazi element\n");
     printf("0 - Izlaz\n");
     printf("Izbor: ");
-    scanf("%d", &izbor);                      // unos
-    return izbor;                              // vrati izbor
+    scanf("%d", &izbor);
+    return izbor;
 }
 
-// glavna funkcija – samo poziva druge funkcije
 int main() {
-    Cvor* korijen = NULL;                      // prazno stablo
-    int izbor, x;                              // pomoćne varijable
+    Cvor* korijen = NULL;
+    int izbor, x;
 
     do {
-        izbor = izbornik();                    // poziv funkcije izbornika
+        izbor = izbornik();
 
         if (izbor == 1) {
-            scanf("%d", &x);                  // unos vrijednosti
-            korijen = umetni(korijen, x);      // umetanje
+            scanf("%d", &x);
+            korijen = umetni(korijen, x);
         }
         else if (izbor == 2) {
-            inorder(korijen);                  // inorder ispis
+            inorder(korijen);
         }
         else if (izbor == 3) {
-            preorder(korijen);                 // preorder ispis
+            preorder(korijen);
         }
         else if (izbor == 4) {
-            postorder(korijen);                // postorder ispis
+            postorder(korijen);
         }
         else if (izbor == 5) {
-            scanf("%d", &x);                  // unos vrijednosti
-            korijen = obrisi(korijen, x);      // brisanje
+            scanf("%d", &x);
+            korijen = obrisi(korijen, x);
         }
         else if (izbor == 6) {
-            scanf("%d", &x);                  // unos vrijednosti
-            if (pretrazi(korijen, x))           // pretraga
+            scanf("%d", &x);
+            if (pretrazi(korijen, x))
                 printf("Postoji\n");
             else
                 printf("Ne postoji\n");
         }
 
-    } while (izbor != 0);                      // ponavljaj
+    } while (izbor != 0);
 
-    return 0;                               
+  
+    oslobodiStablo(korijen);
+
+    return 0;
 }
