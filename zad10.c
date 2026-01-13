@@ -202,7 +202,7 @@ int main() {
 
     ispisListaDrzava(listaDrzava, min);
 
-    // 🔥 OSLABAĐANJE MEMORIJE
+    //  OSLABAĐANJE MEMORIJE
     oslobodiDrzavaLista(listaDrzava);
     oslobodiDrzavaBST(stabloDrzava);
 
